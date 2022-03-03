@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'resources/dial_widget.dart';
+import 'package:the_great_adventure/screens/dial_lock/safe_dial.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +30,7 @@ class SafeCracker extends StatefulWidget {
 
 class _SafeCrackerState extends State<SafeCracker> {
   List<int> values = [0, 0, 0];
-  String combination = "420";
+  String combination = "696";
   bool isUnlocked = false;
   String feedback = '';
   late List<FixedExtentScrollController> _controllers;
@@ -53,12 +53,11 @@ class _SafeCrackerState extends State<SafeCracker> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 400,
-                height: 400,
-                child: Image.asset(isUnlocked
-                    ? 'assets/images/open.png'
-                    : 'assets/images/close.png'),
+              Icon(
+                isUnlocked
+                    ? CupertinoIcons.lock_open_fill
+                    : CupertinoIcons.lock_fill,
+                size: 128,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,6 +97,27 @@ class _SafeCrackerState extends State<SafeCracker> {
                     ),
                   ),
                   child: Text(isUnlocked ? 'Lock' : 'Unlock'),
+                ),
+              ),
+              SizedBox(height: 20),
+              InkWell(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                onTap: () {
+                  Navigator.of(context).pop(isUnlocked);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 100,
+                  height: 30,
+                  decoration: ShapeDecoration(
+                    color: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                  ),
+                  child: Text('Back'),
                 ),
               ),
             ],
