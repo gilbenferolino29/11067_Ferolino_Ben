@@ -69,9 +69,11 @@ class _ListHolderState extends State<ListHolder> {
                           onDismissed: (direction) async {
                             switch (direction) {
                               case DismissDirection.endToStart:
-                                setState(() {
-                                  todoContents.removeAt(index);
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    todoContents.removeAt(index);
+                                  });
+                                }
                                 break;
                               case DismissDirection.startToEnd:
                                 InputHolder input = await showDialog(
@@ -83,10 +85,13 @@ class _ListHolderState extends State<ListHolder> {
                                     );
                                   },
                                 );
-                                setState(() {
-                                  todoContents.removeAt(index);
-                                  EditToDo(input.title, input.details, index);
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    EditToDo(input.title, input.details,
+                                        todoContents[index].id);
+                                    todoContents.removeAt(index);
+                                  });
+                                }
                                 break;
                             }
                           },
@@ -140,7 +145,7 @@ class _ListHolderState extends State<ListHolder> {
         todoContents.add(TodoData(
           title: title,
           details: details,
-          id: index + 1,
+          id: index,
         ));
       });
     }
