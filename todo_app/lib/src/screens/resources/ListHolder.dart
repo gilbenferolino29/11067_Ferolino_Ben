@@ -114,9 +114,6 @@ class _ListHolderState extends State<ListHolder> {
                                 ),
                                 SizedBox(height: 4),
                                 Row(children: [
-                                  Text(todoContents[index].id.toString(),
-                                      style: TextStyle(fontSize: 18)),
-                                  SizedBox(width: 2),
                                   Flexible(
                                       child: Text(todoContents[index].details)),
                                 ]),

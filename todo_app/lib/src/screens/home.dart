@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   addToDo(String title, String details) {
     int index = 0;
     if (todoContents.isEmpty) {
-      index = 0;
+      index = index + 1;
     } else {
       index = todoContents.last.id + 1;
     }
