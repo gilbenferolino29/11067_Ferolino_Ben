@@ -13,6 +13,7 @@ class TodoData {
   }
 
   TodoData.fromJson(Map<String, dynamic> json) {
+    title = json['title'] ?? '';
     details = json['details'] ?? '';
     timestamp = json['created'] ?? DateTime.now();
     done = json['done'] ?? false;

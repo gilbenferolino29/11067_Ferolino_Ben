@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/src/controllers/todo_controller.dart';
 import 'package:todo_app/src/model/edit_input.dart';
 import 'package:todo_app/src/model/todo_data.dart';
 import 'package:todo_app/src/screens/login/auth_controller.dart';
@@ -19,6 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late TodoController _todoController;
+  AuthController get _auth => widget.auth;
+  @override
+  void initState() {
+    _todoController = TodoController(_auth.currentUser!.username);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.green[600],
         child: Icon(Icons.add),
         onPressed: () async {
-          InputHolder? input = await showDialog(
+          TodoData? input = await showDialog(
             context: context,
             builder: (BuildContext dialogContext) {
               return TodoInput();
@@ -35,9 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
           if (input != null) {
             if (mounted) {
-              setState(() {
-                addToDo(input.title, input.details);
-              });
+              _todoController.addTodo(input);
+              setState(() {});
             }
           }
         },
@@ -45,8 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
+          icon: Icon(Icons.logout),
+          onPressed: () {
+            _auth.logout();
+          },
         ),
       ),
       body: SafeArea(
@@ -62,14 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 width: (MediaQuery.of(context).size.width),
                 child: Text(
-                  'Welcome Ben',
+                  'Welcome ' + _auth.currentUser!.username,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                   ),
                 ),
               ),
-              ListHolder(size: size)
+              ListHolder(_auth, size: size)
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/src/model/todo_data.dart';
 
 import '../../../model/edit_input.dart';
 
@@ -54,8 +55,8 @@ class _TodoInputState extends State<TodoInput> {
                   if (_cTitle.text == "" || _cDetails.text == "") {
                     Navigator.of(context).pop();
                   } else {
-                    Navigator.of(context)
-                        .pop(InputHolder(_cTitle.text, _cDetails.text));
+                    Navigator.of(context).pop(
+                        TodoData(title: _cTitle.text, details: _cDetails.text));
                   }
                 },
               ),

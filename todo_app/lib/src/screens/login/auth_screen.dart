@@ -4,6 +4,7 @@ import 'package:todo_app/src/global/constants.dart';
 import 'package:todo_app/src/global/styles.dart';
 import 'package:todo_app/src/screens/home.dart';
 import 'package:todo_app/src/screens/login/auth_controller.dart';
+import 'package:todo_app/src/screens/register_screen.dart';
 
 import 'package:todo_app/src/size_configs.dart';
 
@@ -83,6 +84,10 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
             SizedBox(height: sizeV * 6),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: Text(prompts),
+            ),
             Form(
               key: _formKey,
               onChanged: () {
@@ -157,7 +162,12 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 const SizedBox(width: 5),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterScreen(widget.auth)));
+                  },
                   child: Text(
                     'SIGN UP',
                     style: kDesc2,
