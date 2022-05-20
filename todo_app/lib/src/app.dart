@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/src/screens/home.dart';
+import 'package:todo_app/src/screens/login/auth_screen.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(backgroundColor: Colors.green[400]),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      home: Wrapper(),
     );
   }
 }

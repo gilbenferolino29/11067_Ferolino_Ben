@@ -79,18 +79,11 @@ class _ListHolderState extends State<ListHolder> {
                                 InputHolder input = await showDialog(
                                   context: context,
                                   builder: (BuildContext dialogContext) {
-                                    return EditInput(
-                                      title: todoContents[index].title,
-                                      details: todoContents[index].details,
-                                    );
+                                    return EditInput(todo: todo);
                                   },
                                 );
                                 if (mounted) {
-                                  setState(() {
-                                    EditToDo(input.title, input.details,
-                                        todoContents[index].id);
-                                    todoContents.removeAt(index);
-                                  });
+                                  setState(() {});
                                 }
                                 break;
                             }
@@ -109,7 +102,7 @@ class _ListHolderState extends State<ListHolder> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  todoContents[index].title,
+                                  todo.title,
                                   style: TextStyle(fontSize: 25),
                                 ),
                                 SizedBox(height: 4),
@@ -118,7 +111,7 @@ class _ListHolderState extends State<ListHolder> {
                                       child: Text(todoContents[index].details)),
                                 ]),
                                 SizedBox(height: 5),
-                                Text(todoContents[index].timestamp.toString(),
+                                Text(todo.parsedDate.toString(),
                                     style: TextStyle(fontSize: 12)),
                               ],
                             ),
@@ -132,19 +125,5 @@ class _ListHolderState extends State<ListHolder> {
         ),
       ),
     );
-  }
-
-  EditToDo(String title, String details, int index) {
-    //index = todoContents.last.id + 1;
-
-    if (mounted) {
-      setState(() {
-        todoContents.add(TodoData(
-          title: title,
-          details: details,
-          id: index,
-        ));
-      });
-    }
   }
 }

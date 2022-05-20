@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/src/model/todo_data.dart';
 
 import '../../../model/edit_input.dart';
 
 class EditInput extends StatelessWidget {
-  final String title;
-  final String details;
+  final TodoData todo;
   const EditInput({
     Key? key,
-    required this.title,
-    required this.details,
+    required this.todo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController _cTitle = TextEditingController();
     final TextEditingController _cDetails = TextEditingController();
-    _cTitle.text = title;
-    _cDetails.text = details;
+
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -57,7 +55,7 @@ class EditInput extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context)
-                      .pop(InputHolder(_cTitle.text, _cDetails.text));
+                      .pop(todo.updateDetails(_cTitle.text, _cDetails.text));
                 },
               ),
             )
