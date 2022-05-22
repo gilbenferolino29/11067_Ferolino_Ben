@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.green[600],
         child: Icon(Icons.add),
         onPressed: () async {
-          TodoData? input = await showDialog(
+          InputHolder? input = await showDialog(
             context: context,
             builder: (BuildContext dialogContext) {
               return TodoInput();
@@ -44,8 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
           if (input != null) {
             if (mounted) {
-              _todoController.addTodo(input);
-              setState(() {});
+              setState(() {
+                addToDo(input.title, input.details);
+              });
             }
           }
         },
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   addToDo(String title, String details) {
     if (mounted) {
       setState(() {
-        todoContents.add(TodoData(
+        _todoController.addTodo(TodoData(
           title: title,
           details: details,
         ));

@@ -55,8 +55,8 @@ class _TodoInputState extends State<TodoInput> {
                   if (_cTitle.text == "" || _cDetails.text == "") {
                     Navigator.of(context).pop();
                   } else {
-                    Navigator.of(context).pop(
-                        TodoData(title: _cTitle.text, details: _cDetails.text));
+                    Navigator.of(context)
+                        .pop(InputHolder(_cTitle.text, _cDetails.text));
                   }
                 },
               ),
